@@ -57,3 +57,16 @@ function getCookie(cname) {
     }
     return "";
 }
+
+function newimage(keyword){
+  if(!ACCESS_KEY){
+    alert("Please update your access key");
+    return;
+  }
+  var url = `https://api.unsplash.com/search/photos?query=${keyword}&per_page=20&orientation=landscape&client_id=${ACCESS_KEY}`;
+  $.get(url,function(data){
+    var picture_url = data.results[0].urls.raw;
+    setCookie("picture",picture_url);
+    $('body').css('background-image',`url(${picture_url})`);
+  });
+}
